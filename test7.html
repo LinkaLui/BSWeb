@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        var tableclick = true;
+        function SetPoint(obj) {
+            if (obj.innerText == '_') {
+                if (tableclick) {
+                    obj.innerText = 'O';
+                    tableclick = false;
+                }
+                else {
+                    obj.innerText = 'X';
+                    tableclick = true;
+                }
+            }
+            var result = GetClickItem(obj);
+            if(result){
+                alert("Win!!");
+            }
+        }
+        function GetClickItem(obj) {
+            var flag = obj.innerText;
+            var clickitem = obj.className.split(" ");
+            for (i = 0 ; i < clickitem.length;i++){
+                if(CheckContinue(clickitem[i] , flag)==true){
+                    return true;
+                }
+            }
+        }
+        function CheckContinue(classname, flag) {
+            var ans = null;
+            ans = Array.prototype.slice.call(document.getElementsByClassName(classname)).every(function (item) {
+                return item.innerText == flag;
+            });
+            return ans;
+        }
+    </script>
+</head>
+
+<body>
+
+    <h1>OOXX遊戲</h1>
+
+    <div style="font-size: 80px">
+        <table border="1" style="width: 350px;text-align: center;vertical-align: middle; ">
+            <tr>
+                <td class="row1 colume1 right" style="width: 100px" onclick="SetPoint(this)">_</td>
+                <td class="row1 colume2" style="width: 100px" onclick="SetPoint(this)">_</td>
+                <td class="row1 colume3 left" style="width: 100px" onclick="SetPoint(this)">_</td>
+            </tr>
+            <tr>
+                <td class="row2 colume1" onclick="SetPoint(this)">_</td>
+                <td class="row2 colume2 right left" onclick="SetPoint(this)">_</td>
+                <td class="row2 colume3" onclick="SetPoint(this)">_</td>
+            </tr>
+            <tr>
+                <td class="row3 colume1 left" onclick="SetPoint(this)">_</td>
+                <td class="row3 colume2" onclick="SetPoint(this)">_</td>
+                <td class="row3 colume3 right" onclick="SetPoint(this)">_</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
