@@ -12,17 +12,17 @@ width: 80px;
     list-style-image: url('https://img.icons8.com/android/24/000000/small-axe.png');
 }
 
-.lab3 div,.lab4 div {
-    border:  1px red solid;
+div.lab3, div.lab4 {
+    border:  5px red solid;
 }
 
-.lab3 #div2,.lab4 div{
+div.lab3 #div2, div.lab4 #div2{
     border:  3px purple dashed;
     border-left:  5px blue dotted;
     border-left:  1px green solid;
 }
 
-.lab4 div {
+div.lab4 {
     border-radius:  5px 10px 15px 20px;
 }
 
