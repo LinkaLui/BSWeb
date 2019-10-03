@@ -1,0 +1,39 @@
+#lab1 {
+font-size: 20px;
+line-height: 2.5em;
+}
+
+#item1 li {
+float: left;
+width: 80px;
+}
+
+#item2 {
+    list-style-image: url('https://img.icons8.com/android/24/000000/small-axe.png');
+}
+
+.lab3 div,.lab4 div {
+    border:  1px red solid;
+}
+
+.lab3 #div2,.lab4 div{
+    border:  3px purple dashed;
+    border-left:  5px blue dotted;
+    border-left:  1px green solid;
+}
+
+.lab4 div {
+    border-radius:  5px 10px 15px 20px;
+}
+
+#img1{
+    float:right;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.lab6 #p1 {
+    font-size: 20px;
+    line-height: 1.3em;
+    scroll-behavior: auto;
+  }

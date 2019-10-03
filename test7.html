@@ -8,28 +8,33 @@
     <title>Document</title>
 
     <script>
+        var win = false;
         var tableclick = true;
         function SetPoint(obj) {
-            if (obj.innerText == '_') {
-                if (tableclick) {
-                    obj.innerText = 'O';
-                    tableclick = false;
+            if (win) {
+                return;
+            } else {
+                if (obj.innerText == '_') {
+                    if (tableclick) {
+                        obj.innerText = 'O';
+                        tableclick = false;
+                    } else {
+                        obj.innerText = 'X';
+                        tableclick = true;
+                    }
                 }
-                else {
-                    obj.innerText = 'X';
-                    tableclick = true;
+                var result = GetClickItem(obj);
+                if (result) {
+                    alert("Win!!");
+                    var win = true;
                 }
-            }
-            var result = GetClickItem(obj);
-            if(result){
-                alert("Win!!");
             }
         }
         function GetClickItem(obj) {
             var flag = obj.innerText;
             var clickitem = obj.className.split(" ");
-            for (i = 0 ; i < clickitem.length;i++){
-                if(CheckContinue(clickitem[i] , flag)==true){
+            for (i = 0; i < clickitem.length; i++) {
+                if (CheckContinue(clickitem[i], flag) == true) {
                     return true;
                 }
             }
