@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script>
+        function Calculate() {
+            var hight = document.getElementById("inputhight");
+            var weight = document.getElementById("inputweight");
+            var result = weight.value / ((hight.value / 100) * (hight.value / 100));
+            var outputresult = document.getElementById("result");
+            outputresult.innerText = result;
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <label for="hight">身高：</label>
+        <input id="inputhight" name="hight" type="number">
+    </div>
+    <div>
+        <label for="weight">體重：</label>
+        <input id="inputweight" type="number" name="weight">
+    </div>
+    <div>
+        <label>結果：<span id="result"></span></label>
+    </div>
+    <div>
+        <input type="submit" name="inputsubmit" onclick="Calculate()" value="計算">
+    </div>
+</body>
+
+</html>

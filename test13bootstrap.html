@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>線上個人資料填寫表單</title>
+
+    <!-- bootstrap 4.3.1 -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        function GetIdElement(id) {
+            return document.getElementById(id);
+        }
+
+        function CheckAgree() {
+            var isAgree = GetIdElement("formagree").checked;
+            if (isAgree) {
+                return true;
+            } else {
+                alert("必須勾選'同意授予個人資料的使用權'");
+                return false;
+            }
+        }
+        window.onload = function () {
+            GetIdElement("form1").onsubmit = function () {
+                return CheckAgree();
+            }
+        }
+    </script>
+
+    <style>
+    .card {
+        height: 40vh;
+        margin: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <form id="form1"
+        action="http://isbaas.azurewebsites.net/WebForms/Form2Mail.aspx?mailto=sania0321@gmail.com&redirect=http://www.google.com"
+        method="POST">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h4>個人資料--<b><em>必填</em></b></h4>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <label for="formName">姓名：</label>
+                                <input type="text" name="formName" value="" placeholder="請輸入姓名">
+                            </div>
+                            <div>
+                                <label for="formPassword">密碼：</label>
+                                <input type="password" name="formPassword">
+                            </div>
+                            <div>
+                                <label for="formgender">性別：</label>
+                                <input type="radio" name="formgender" value="男生">男生
+                                <input type="radio" name="formgender" value="女生">女生
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h4>個人資料--<b><em>興趣</em></b></h4>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <label for="formhobby">興趣：</label>
+                                <input type="checkbox" name="formhobby" value="音樂">音樂
+                                <input type="checkbox" name="formhobby" value="運動">運動
+                                <input type="checkbox" name="formhobby" value="閱讀">閱讀
+                                <input type="checkbox" name="formhobby" value="電影">電影
+                            </div>
+                            <div>
+                                <label for="formexpertise">專長：</label>
+                                <textarea name="formexpertise" cols="40" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h4>個人資料--<b><em>地址</em></b></h4>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <label for="formpostnumber">郵遞區號：</label>
+                                <input type="number" name="formpostnumber">
+                            </div>
+                            <div>
+                                <label for="formcity">縣市：</label>
+                                <select name="formcity">
+                                    <option value="keelung">基隆市</option>
+                                    <option value="taipeicity">台北市</option>
+                                    <option value="taipei">新北市</option>
+                                    <option value="yilan">宜蘭縣</option>
+                                    <option value="taoyuan">桃園市</option>
+                                    <option value="hsinchucity">新竹市</option>
+                                    <option value="hsinchu">新竹縣</option>
+                                    <option value="miaoli">苗栗縣</option>
+                                    <option value="taichun">臺中市</option>
+                                    <option value="changhua">彰化縣</option>
+                                    <option value="nantou">南投縣</option>
+                                    <option value="yunlin">雲林縣</option>
+                                    <option value="chiayicity">嘉義市</option>
+                                    <option value="chiayi">嘉義縣</option>
+                                    <option value="tainan">臺南市</option>
+                                    <option value="kaohsiung">高雄市</option>
+                                    <option value="pingtung">屏東縣</option>
+                                    <option value="taitung">臺東縣</option>
+                                    <option value="hualien">花蓮縣</option>
+                                    <option value="penghu">澎湖縣</option>
+                                    <option value="kinmen">金門縣</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="formaddress">其他地址：</label>
+                                <input type="text" name="formaddress" placeholder="請輸入地址">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="agree">
+                        <input type="checkbox" id="formagree" name="formagree" value="同意">同意授予個人資料的使用權
+                    </div>
+                    <div class="formbuttom">
+                        <input type="submit" name="formSubmit" value="送件">
+                        <input type="reset" name="formReset" value="清除">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</body>
+
+</html>
