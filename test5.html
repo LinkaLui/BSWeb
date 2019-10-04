@@ -5,15 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>基本表格與框線</title>
+    <style>
+        table{
+            width: 500px;
+            text-align: center;
+            border:3px green solid;
+            border-collapse: collapse;
+        }
+        table th,td {
+            border: 1px red solid;
+        }
+    </style>
 </head>
 
 <body>
-    <table  border="1"style="width: 500px;text-align: center;border:3px green solid;border-collapse: collapse;">
+    <table>
         <caption>
             <h4>表格</h4>
         </caption>
-        <thead border="1" style="border:1px red solid;">
+        <thead>
             <tr>
                 <th>a</th>
                 <th>b</th>
@@ -21,7 +32,7 @@
                 <th>d</th>
             </tr>
         </thead>
-        <tbody border="1" style="border:1px red solid;">
+        <tbody>
             <tr>
                 <td>1</td>
                 <td colspan="2">2</td>
@@ -41,5 +52,4 @@
         </tbody>
     </table>
 </body>
-<!-- 內線有重疊 -->
 </html>
