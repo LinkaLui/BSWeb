@@ -47,11 +47,14 @@
                 $(this).toggleClass("sizeToggle");
             })
 
-
-
             $("#mixbrSelected").change(function () {
                 $("#mix img").removeClass();
                 $("#mix img").addClass($(this).val());
+            })
+
+            $("#mix img").hover(function () {
+                $(this).toggleClass("mouseToggle");
+                $(this).toggleClass("sizeToggle");
             })
         }
 
