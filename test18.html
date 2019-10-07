@@ -14,6 +14,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
+        // function(obj) {
+        // }
+
         function init() {
             $("#Button1").click(function (e) {
                 var hight = $("#textHeight").val();
@@ -33,12 +36,52 @@
                     });
                 }
             });
+
+            $("#brSelected").change(function () {
+                $("#borderchange img").removeClass();
+                $("#borderchange img").addClass($(this).val());
+            })
+
+            $("#sizechange img").hover(function () {
+                $(this).toggleClass("mouseToggle");
+                $(this).toggleClass("sizeToggle");
+            })
+
+
+
+            $("#mixbrSelected").change(function () {
+                $("#mix img").removeClass();
+                $("#mix img").addClass($(this).val());
+            })
         }
 
         $(function () {
             init();
         });
     </script>
+
+    <style>
+        .br15 {
+            border-radius: 15px;
+        }
+
+        .br30 {
+            border-radius: 30px;
+        }
+
+        .br50 {
+            border-radius: 50px;
+        }
+
+        .mouseToggle {
+            cursor: pointer;
+        }
+
+        .sizeToggle {
+            transform: scale(1.1);
+            transition-duration: 1s;
+        }
+    </style>
 </head>
 
 <body>
@@ -57,20 +100,84 @@
     </div>
 
     <div class="row" style="margin:10px">
-            <div class="col-12">
-                <input id="CheckAll" type="checkbox" />勾選全部
-                <div id="CheckBoxGroup">
-                    <input type="checkbox" />項目1
-                    <input type="checkbox" />項目2
-                    <input type="checkbox" />項目3
-                    <input type="checkbox" />項目4
-                    <input type="checkbox" />項目5
-                    <input type="checkbox" />項目6
-                    <input type="checkbox" />項目7
-                    <input type="checkbox" />項目8
-                </div>
+        <div class="col-12">
+            <input id="CheckAll" type="checkbox" />勾選全部
+            <div id="CheckBoxGroup">
+                <input type="checkbox" />項目1
+                <input type="checkbox" />項目2
+                <input type="checkbox" />項目3
+                <input type="checkbox" />項目4
+                <input type="checkbox" />項目5
+                <input type="checkbox" />項目6
+                <input type="checkbox" />項目7
+                <input type="checkbox" />項目8
             </div>
         </div>
+    </div>
+
+    <div id="borderchange" class="row" style="margin:10px; padding-top:100px">
+        <div class="col-12">
+            <select id="brSelected">
+                <option value="br15">15px</option>
+                <option value="br30">30px</option>
+                <option value="br50">50px</option>
+            </select>
+        </div>
+        <div class="col-4">
+            <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" class="img-responsive" />
+        </div>
+        <div class="col-4">
+            <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" class="img-responsive" />
+        </div>
+        <div class="col-4">
+            <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" class="img-responsive" />
+        </div>
+    </div>
+
+    <div id="sizechange" class="row" style="margin:10px; padding-top:100px">
+        <div class="row" style="margin:10px; width: 100%">
+            <div class="col-4">
+                <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" class="img-responsive" />
+            </div>
+            <div class="col-4">
+                <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" class="img-responsive" />
+            </div>
+            <div class="col-4">
+                <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" class="img-responsive" />
+            </div>
+        </div>
+        <div class="row" style="margin:10px; width: 100%">
+            <div class="col-4">
+                <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" class="img-responsive" />
+            </div>
+            <div class="col-4">
+                <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" class="img-responsive" />
+            </div>
+            <div class="col-4">
+                <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" />
+            </div>
+        </div>
+    </div>
+
+    <div id="mix" class="row" style="margin:10px; padding-top:100px">
+        <div class="col-12">
+            <select id="mixbrSelected">
+                <option value="br15">15px</option>
+                <option value="br30">30px</option>
+                <option value="br50">50px</option>
+            </select>
+        </div>
+        <div class="col-4">
+            <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" class="img-responsive" />
+        </div>
+        <div class="col-4">
+            <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" class="img-responsive" />
+        </div>
+        <div class="col-4">
+            <img src="https://fakeimg.pl/300x100/?text=1&font=noto" style="width:100%" class="img-responsive" />
+        </div>
+    </div>
+
 </body>
 
 </html>
