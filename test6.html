@@ -5,41 +5,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>課表</title>
+
+    <style>
+    table {
+        width: 500px;
+        text-align: center;
+        border: 1px black solid;
+        border-collapse: collapse;
+        /* border-collapse 線與線是否貼合 */
+    }
+
+    table th,td {
+        border: 1px black solid;
+    }
+    </style>
 </head>
 
 <body>
-    <table style="width: 500px;text-align: center;border-width: 1px">
+    <table>
         <caption>
-            <h4>表格</h4>
+            <h4>課表</h4>
         </caption>
         <thead>
             <tr>
-                <th>a</th>
-                <th>b</th>
-                <th>c</th>
-                <th>d</th>
+                <th>時間</th>
+                <th>星期一</th>
+                <th>星期二</th>
+                <th>星期三</th>
+                <th>星期四</th>
+                <th>星期五</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>1</td>
-                <td colspan="2">2</td>
-                <td>4</td>
+                <th>早上</th>
+                <td>上課</td>
+                <td>練習</td>
+                <td>上課</td>
+                <td>上課</td>
+                <td rowspan="3">練習</td>
             </tr>
             <tr>
-                <td>A</td>
-                <td>B</td>
-                <td rowspan="2">C</td>
-                <td>D</td>
+                <th colspan="5">午休</th>
             </tr>
             <tr>
-                <td>5</td>
-                <td>6</td>
-                <td>8</td>
+                <th>下午</th>
+                <td>上課</td>
+                <td>助教課</td>
+                <td>上課</td>
+                <td>上課</td>
             </tr>
         </tbody>
     </table>
 </body>
-<!-- 做課表 -->
+
 </html>

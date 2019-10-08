@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>基本jQuery練習</title>
 
     <!-- bootstrap 4.3.1 -->
     <link rel="stylesheet"
@@ -14,10 +14,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <script>
-        // function(obj) {
-        // }
 
         function init() {
+            
             $("#Button1").click(function (e) {
                 var hight = $("#textHeight").val();
                 var weight = $("#textWeight").val();
@@ -46,7 +45,7 @@
                 $(this).toggleClass("mouseToggle");
                 $(this).toggleClass("sizeToggle");
                 // 用class toggle 淡出效果沒有
-                //若要有移出效果還是要寫兩個 function
+                //若要有移出效果還是要寫.hover(function in,function out)
             })
 
             $("#mixbrSelected").change(function () {
