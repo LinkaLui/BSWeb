@@ -16,6 +16,7 @@
     <script>
         $(function () {
 
+
             $(".func-text").click(function () {
                 $("#inputfunc").val($("#inputfunc").val() + $(this).text());
             });
@@ -47,7 +48,7 @@
             border-radius: 50%;
         }
 
-       #inputfunc {
+        #inputfunc {
             width: 230px;
             height: 40px;
             border-radius: 5px;
@@ -94,7 +95,7 @@
             </div>
             <div class="row">
                 <button class="circle func-text btn btn-light">0</button>
-                <button class="circle func-text btn btn-light">.</button>
+                <button class="circle func-text btn btn-light" id="func-dot">.</button>
                 <button class="rectangle btn btn-light" id="func-ans">=</button>
             </div>
         </div>
