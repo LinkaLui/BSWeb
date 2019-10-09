@@ -13,17 +13,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+    <style>
+        @font-face {
+            font-family: "Cursed Timer ULiL font";
+            src: url('test19_font/digital-7(mono).ttf');
+        }
+
+        #inputTime {
+            font-family: "Cursed Timer ULiL font";
+            font-size: 30px;
+        }
+    </style>
+
     <script>
 
         $(function () {
             var couter;
 
             function timeCounter() {
+                if ($("#inputTime").val() > 0) {
                 $("#inputTime").val($("#inputTime").val() - 1);
                 couter = setTimeout(timeCounter, 1000);
-                if ($("#inputTime").val() == 0) {
-                    console.log("Time's up!!!")
+                }else if ($("#inputTime").val() == 0) {
+                    $('#myModal').modal();
                     clearTimeout(couter);
+                }else if ($("#inputTime").val() < 0){
+                    $('.modal-body').text( '時間輸入錯誤!!!');
+                    $('#myModal').modal();
                 }
             }
 
@@ -48,6 +64,23 @@
             <p>
                 <button class="btn btn-primary" id="countStart">開始</button>
                 <button class="btn btn-primary" id="countStop">暫停</button>
+
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">提示訊息</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">Time's up!!!</div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">確定</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </p>
         </div>
     </div>
