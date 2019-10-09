@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>倒數計時器</title>
+
+    <!-- bootstrap 4.3.1 -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+
+        $(function () {
+            var couter;
+
+            function timeCounter() {
+                $("#inputTime").val($("#inputTime").val() - 1);
+                couter = setTimeout(timeCounter, 1000);
+                if ($("#inputTime").val() == 0) {
+                    console.log("Time's up!!!")
+                    clearTimeout(couter);
+                }
+            }
+
+            $("#countStart").click(function () {
+                timeCounter();
+            });
+            $("#countStop").click(function () {
+                clearTimeout(couter);
+            });
+        });
+
+    </script>
+
+</head>
+
+<body>
+    <!-- 仿造電子鐘的概念，設計一個倒數計時器，可以設定從N秒(例如100秒)每秒倒數到0為止。 -->
+    <!-- 倒數計時中可以暫停，繼續 -->
+    <div class="container mt-4">
+        <div>
+            <p><input type="text" value="" id="inputTime"></p>
+            <p>
+                <button class="btn btn-primary" id="countStart">開始</button>
+                <button class="btn btn-primary" id="countStop">暫停</button>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
