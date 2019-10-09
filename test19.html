@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>電子鐘</title>
+
+    <!-- bootstrap 4.3.1 -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        @font-face {
+            font-family: "Cursed Timer ULiL font";
+            src: url('test19_font/digital-7(mono).ttf');
+        }
+
+        #time {
+            font-family: "Cursed Timer ULiL font";
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+
+            var mytime;
+
+            function showTime() {
+                var myDate = new Date();
+                var year = myDate.getFullYear();
+                var month = myDate.getMonth() + 1;
+                var date = myDate.getDate();
+                var hour = myDate.getHours();
+                var minute = myDate.getMinutes();
+                var second = myDate.getSeconds();
+                var min = checkTime(minute);
+                var sec = checkTime(second);
+                var time1 = year + "/" + month + "/" + date;
+                var time2 = hour + "：" + min + "：" + sec;
+                $('#time').html(time1 + "<br/>" + time2);
+                mytime = setTimeout(showTime, 500);
+            }
+
+            function checkTime(i) {
+                if (i < 10) {
+                    i = "0" + i;
+                }
+                return i;
+            }
+
+            $("#timestart").click(function () {
+                showTime();
+            });
+            $("#timestop").click(function () {
+                clearTimeout(mytime);
+            });
+
+
+            // // 對Date的擴充套件，將 Date 轉化為指定格式的String
+            // // 月(M)、日(d)、小時(h)、分(m)、秒(s)、季度(q) 可以用 1-2 個佔位符，
+            // // 年(y)可以用 1-4 個佔位符，毫秒(S)只能用 1 個佔位符(是 1-3 位的數字)
+            // // 例子：
+            // // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
+            // // (new Date()).Format("yyyy-M-d h:m:s.S")   ==> 2006-7-2 8:9:4.18
+            // Date.prototype.Format = function (fmt) { //author: meizz 
+            //     var o = {
+            //         "M+": this.getMonth() + 1, //月份 
+            //         "d+": this.getDate(), //日 
+            //         "H+": this.getHours(), //小时 
+            //         "m+": this.getMinutes(), //分 
+            //         "s+": this.getSeconds(), //秒 
+            //         "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+            //         "S": this.getMilliseconds() //毫秒 
+            //     };
+            //     if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            //     for (var k in o)
+            //         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            //     return fmt;
+            // };
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-8 text-black font-weight-bold display-4">
+            <div><span id="time">test</span></div>
+            <button class="btn btn-primary" id="timestart">開始</button>
+            <button class="btn btn-primary" id="timestop">暫停</button>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
