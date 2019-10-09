@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>計算BMI</title>
+
+    <!-- bootstrap 4.3.1 -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+
+        $(function () {
+            function Calculate() {
+                var result = $("#inputweight").val() / (($("#inputhight").val() / 100) * ($("#inputhight").val() / 100));
+                $("#result").text(result);
+            }
+
+            $("#calculate-button").click(Calculate);
+        });
+
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <label for="hight">身高：</label>
+                    <input id="inputhight" class="form-control" name="hight" type="number">
+                </div>
+                <div>
+                    <label for="weight">體重：</label>
+                    <input id="inputweight" class="form-control" name="weight" type="number">
+                </div>
+                <div>
+                    <label>結果：<span id="result"></span></label>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-primary" name="inputsubmit" id="calculate-button" value="計算">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
