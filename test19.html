@@ -25,32 +25,32 @@
     </style>
 
     <script>
+
+        var mytime;
+        function showTime() {
+            var myDate = new Date();
+            var year = myDate.getFullYear();
+            var month = myDate.getMonth() + 1;
+            var date = myDate.getDate();
+            var hour = myDate.getHours();
+            var minute = myDate.getMinutes();
+            var second = myDate.getSeconds();
+            var min = checkTime(minute);
+            var sec = checkTime(second);
+            var time1 = year + "/" + month + "/" + date;
+            var time2 = hour + "：" + min + "：" + sec;
+            $('#time').html(time1 + "<br/>" + time2);
+            mytime = setTimeout(showTime, 500);
+        }
+
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+
         $(function () {
-
-            var mytime;
-
-            function showTime() {
-                var myDate = new Date();
-                var year = myDate.getFullYear();
-                var month = myDate.getMonth() + 1;
-                var date = myDate.getDate();
-                var hour = myDate.getHours();
-                var minute = myDate.getMinutes();
-                var second = myDate.getSeconds();
-                var min = checkTime(minute);
-                var sec = checkTime(second);
-                var time1 = year + "/" + month + "/" + date;
-                var time2 = hour + "：" + min + "：" + sec;
-                $('#time').html(time1 + "<br/>" + time2);
-                mytime = setTimeout(showTime, 500);
-            }
-
-            function checkTime(i) {
-                if (i < 10) {
-                    i = "0" + i;
-                }
-                return i;
-            }
 
             $("#timestart").click(function () {
                 showTime();

@@ -27,21 +27,21 @@
 
     <script>
 
-        $(function () {
-            var couter;
+        var couter;
+        function timeCounter() {
 
-            function timeCounter() {
-                if ($("#inputTime").val() > 0) {
+            if ($("#inputTime").val() > 0) {
                 $("#inputTime").val($("#inputTime").val() - 1);
                 couter = setTimeout(timeCounter, 1000);
-                }else if ($("#inputTime").val() == 0) {
-                    $('#myModal').modal();
-                    clearTimeout(couter);
-                }else if ($("#inputTime").val() < 0){
-                    $('.modal-body').text( '時間輸入錯誤!!!');
-                    $('#myModal').modal();
-                }
+            } else if ($("#inputTime").val() == 0) {
+                $('#myModal').modal();
+                clearTimeout(couter);
+            } else if ($("#inputTime").val() < 0) {
+                $('.modal-body').text('時間輸入錯誤!!!');
+                $('#myModal').modal();
             }
+        }
+        $(function () {
 
             $("#countStart").click(function () {
                 timeCounter();
