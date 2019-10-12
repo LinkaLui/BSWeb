@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>線上多語翻譯</title>
+
+    <!-- bootstrap 4.3.1 -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        $(function () {
+            $('#transbtn').click(function () {
+                var source = $('#inputtext').val();
+                var language = $('#language').val();
+                $.ajax({
+                    type: "post", //http verb
+                    headers: {
+                        //http header
+                        "Ocp-Apim-Subscription-Key": "a4475af33a464d73a495eef4ed5ec54f",
+                        "Content-Type": "application/json"
+                    },
+                    url: `https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=${language}`,
+                    data: JSON.stringify([{ "Text": source }]), //要翻譯的文字
+                    dataType: "json",
+                    success: function (response) {
+                        //呼叫遠端服務後的回傳結果
+                        console.log(response);
+                        $('#outputtext').val(response[0].translations[0].text);
+                    }
+                });
+
+            });
+            $('#clearbtn').click(function () {
+                $('textarea').val("");
+            });
+            $('#changebtn').click(function () {
+                var inputtext = $('#outputtext').val();
+                var outputtext =$('#inputtext').val();
+                $('#outputtext').val(outputtext);
+                $('#inputtext').val(inputtext);
+            });
+        });
+
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row align-items-center mt-4 ">
+            <div class="col-5 justify-content-around">
+                <label for="input" id="inputlang">翻譯內容</label>
+                <textarea class="w-100 rounded border-info" name="input" id="inputtext" rows="15" placeholder="請輸入翻譯內容"></textarea>
+            </div>
+            <div class="col-1 justify-content-center">
+                <input class="btn btn-info mb-2 w-100" id="transbtn" type="button" value="翻譯">
+                <input class="btn btn-info mb-2 mt-2 w-100" id="changebtn" type="button" value="&lt; - &gt;">
+                <input class="btn btn-info mt-2 w-100" id="clearbtn" type="button" value="清除">
+            </div>
+            <div class="col-5 justify-content-around">
+                <label for="output" id="outputlang">選擇翻譯語言</label>
+                <select id="language" name="language" class="custom-select w-50 mb-2">
+                        <option selected>語言</option>
+                        <option value="en">English</option>
+                        <option value="ja">日本語</option>
+                        <option value="zh-Hant">中文</option>
+                    </select>
+                <textarea class="w-100 rounded border-info" name="output" id="outputtext" rows="15"
+                    readonly="readonly"></textarea>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
