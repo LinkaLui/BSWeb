@@ -66,8 +66,9 @@
             //設定落子
             game.setBox(obj.parentElement.rowIndex, obj.cellIndex, $(obj).text());
             //有人贏嗎?
-            if (game.HasWinner(obj.parentElement.rowIndex, obj.cellIndex, $(obj).text()) != '') {
-                console.log(game.HasWinner()); $("#label1").html(`<span style='color:red'>winner : ${game.HasWinner()}</span>`);
+            var winner = game.HasWinner(obj.parentElement.rowIndex, obj.cellIndex, $(obj).text());
+            if (winner != '') {
+                $("#label1").html(`<span style="color:red">winner : ${winner}</span>`);
             }
         }
 
