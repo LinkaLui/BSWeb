@@ -92,15 +92,14 @@
     </header>
 
     <main>
-        <div class="jumbotron jumbotron-fluid mb-0"
+        <div class="w-100 jumbotron jumbotron-fluid mb-0"
             style="background-image: url(images/bg-header.jpg); background-size: cover">
             <div class="container">
-                <h1 class="text-center text-white mb-5" style="text-shadow:rgba(0, 0, 0, 0.8) 0 0 8px;">
+                <h1 class="text-center text-white mb-0" style="text-shadow:rgba(0, 0, 0, 0.8) 0 0 8px;">
                     <span class="mr-4 d-inline-block"> 為了家</span>
                     <span class="d-inline-block"> 還可以更好</span>
-                    <!-- mr-4 d-inline-block是? -->
+                    <!-- d-inline-block是? -->
                 </h1>
-                <!-- mb5是什麼 -->
             </div>
             <div class="container">
                 <div class="card" style="opacity: 0.9;">
@@ -128,16 +127,14 @@
                                         aria-label="Text input with dropdown button">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary dropdown-toggle" type="button"
-                                            data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">進階篩選</button>
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">進階篩選
+                                        </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                            <div role="separator" class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Separated link</a>
+                                            <a class="dropdown-item" href="#">縣市</a>
+                                            <a class="dropdown-item" href="#">行政區</a>
+                                            <a class="dropdown-item" href="#">總價</a>
                                         </div>
-                                        <button class="btn btn-primary">
+                                        <button class="btn btn-primary ml-2 rounded">
                                             搜尋
                                         </button>
                                     </div>
@@ -152,48 +149,51 @@
                 </div>
             </div>
         </div>
-        <div class="container" style="background-image: url(images/bg-map.png)">
-            <h2 class="text-center mb-4 h3">海外置產說明會</h2>
-            <!-- mb-4 h3=? -->
-            <div class="row">
-                <div class="col-12 col-lg-6">
-                    <img class="w-100 mb-4" src="images/img-japan.jpg" alt="日本購屋說明會">
+        <div class="w-100 mt-0 pt-5 pb-5" style="background-image: url(images/bg-map.png)">
+            <div class="container">
+                <h2 class="text-center mb-4 h3">海外置產說明會</h2>
+                <!-- h3=? -->
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <img class="w-100" src="images/img-japan.jpg" alt="日本購屋說明會">
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <img class="w-100" src="images/img-malaysia.jpg" alt="馬來西亞購屋說明會">
+                    </div>
                 </div>
-                <div class="col-12 col-lg-6">
-                    <img class="w-100 mb-4" src="images/img-malaysia.jpg" alt="馬來西亞購屋說明會">
+                <h2 class="text-center mt-5 mb-4 h3">精選優質好宅</h2>
+                <div class="card-deck">
+                    <a class="card cardhover" href="#">
+                        <img src="images/img-selected-1.jpg" class="card-img-top" alt="低總價宅">
+                        <div class="card-body text-white" style="background-color: #40C2A0">
+                            <h5 class="card-title">低總價宅</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-black" style="color: black">
+                                精選各區域低總價物件，近捷運、學校、公園等，讓你找到滿意的低價好宅，把握好房趁現在！...</p>
+                        </div>
+                    </a>
+                    <a class="card cardhover" href="#">
+                        <img src="images/img-selected-2.jpg" class="card-img-top" alt="信義APP">
+                        <div class="card-body text-white" style="background-color: #60AEDD">
+                            <h5 class="card-title">信義APP</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-black" style="color: black">
+                                信義房屋APP「即時聊、即時推、即時查」讓你找屋省心力，購售需求一次滿足，關於家，找信義聊聊</p>
+                        </div>
+                    </a>
+                    <a class="card cardhover" href="#">
+                        <img src="images/img-selected-3.jpg" class="card-img-top" alt="商辦精選">
+                        <div class="card-body text-white" style="background-color: #FF9275">
+                            <h5 class="card-title">商辦精選</h5>
+                        </div>
+                        <div class="card-body text-black">
+                            <p class="card-text text-black" style="color: black">如何區分辦公大樓等級?常見可分為A、B、C級大樓，幾個重要指標讓你快速了解！
+                            </p>
+                        </div>
+                    </a>
                 </div>
-            </div>
-            <h2 class="text-center mb-4 h3">精選優質好宅</h2>
-            <div class="card-deck">
-                <a class="card cardhover" href="#">
-                    <img src="images/img-selected-1.jpg" class="card-img-top" alt="低總價宅">
-                    <div class="card-body text-white" style="background-color: #40C2A0">
-                        <h5 class="card-title">低總價宅</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text text-black" style="color: black">
-                            精選各區域低總價物件，近捷運、學校、公園等，讓你找到滿意的低價好宅，把握好房趁現在！...</p>
-                    </div>
-                </a>
-                <a class="card cardhover" href="#">
-                    <img src="images/img-selected-2.jpg" class="card-img-top" alt="信義APP">
-                    <div class="card-body text-white" style="background-color: #60AEDD">
-                        <h5 class="card-title">信義APP</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text text-black" style="color: black">
-                            信義房屋APP「即時聊、即時推、即時查」讓你找屋省心力，購售需求一次滿足，關於家，找信義聊聊</p>
-                    </div>
-                </a>
-                <a class="card cardhover" href="#">
-                    <img src="images/img-selected-3.jpg" class="card-img-top" alt="商辦精選">
-                    <div class="card-body text-white" style="background-color: #FF9275">
-                        <h5 class="card-title">商辦精選</h5>
-                    </div>
-                    <div class="card-body text-black">
-                        <p class="card-text text-black" style="color: black">如何區分辦公大樓等級?常見可分為A、B、C級大樓，幾個重要指標讓你快速了解！</p>
-                    </div>
-                </a>
             </div>
         </div>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -230,7 +230,7 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        <div class="container">
+        <div class="container pt-5 pb-5">
             <h2 class="text-center mb-4 h3">熱門頻道</h2>
             <div class="card-deck">
                 <a class="card cardhover" href="#">
@@ -263,10 +263,106 @@
                 </a>
             </div>
         </div>
-
-
-
     </main>
+    <footer>
+        <nav class="navbar navbar-expand-lg bg-dark text-white">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <!-- mr-auto 向左對齊 -->
+                    <li class="nav-item mr-5">
+                        <a class="nav-link text-white" href="#">信義消息</a>
+                    </li>
+                    <li class="nav-item mr-5" style="list-style-type:disc">
+                        <a class="nav-link text-white" href="#">【台灣服務業唯一】榮獲「企業永續最高榮譽」</a>
+                    </li>
+                    <li class="nav-item mr-5" style="list-style-type:disc">
+                        <a class="nav-link text-white" href="#">【信義房價指數】全台都會區季指數</a>
+                    </li>
+                    <li class="nav-item mr-5" style="list-style-type:disc">
+                        <a class="nav-link text-white" href="#">【信義房價指數】大台北月指數</a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+        <div class="container-fluid py-3">
+                <!-- py-3=? -->
+            <div class="row">
+                <div class="col-6 col-md">
+                    <h3 class="h5">信義房屋買屋</h3>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#">條件搜尋</a>
+                        </li>
+                        <li>
+                            <a href="#">捷運搜尋</a>
+                        </li>
+                        <li>
+                            <a href="#">房屋特輯</a>
+                        </li>
+                        <li>
+                            <a href="#">門市據點</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md">
+                    <h3 class="h5">信義成交行情</h3>
+                    <!-- j5=? -->
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#">成交行情搜尋</a>
+                        </li>
+                        <li>
+                            <a href="#">軌道經濟學</a>
+                        </li>
+                        <li>
+                            <a href="#">社區房價通</a>
+                        </li>
+                        <li>
+                            <a href="#">成交行情服務說明</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-7">
+                    <div>
+                        <a class="mr-3 d-inline-block" href="#">信義代銷</a>
+                        <a class="mr-3 d-inline-block" href="#">信義開發</a>
+                        <a class="mr-3 d-inline-block" href="#">信義全球資產</a>
+                        <a class="mr-3 d-inline-block" href="#">信義鑑定</a>
+                        <a class="mr-3 d-inline-block" href="#">安信建經</a>
+                        <!-- d-inline-block=? -->
+                    </div>
+                    <div>
+                        <a class="mr-3 d-inline-block" href="#">日本信義</a>
+                        <a class="mr-3 d-inline-block" href="#">大馬信義</a>
+                        <a class="mr-3 d-inline-block" href="#">中國信義</a>
+                        <a class="mr-3 d-inline-block" href="#">信義置業</a>
+                    </div>
+                    <div>
+                        <a class="mr-3 d-inline-block" href="#">人才招募</a>
+                        <a class="mr-3 d-inline-block" href="#">了解信義</a>
+                    </div>
+                    <div>
+                        <a class="mr-3 d-inline-block" href="#">企業社會責任</a>
+                        <a class="mr-3 d-inline-block" href="#">信義公益基金會</a>
+                        <a class="mr-3 d-inline-block" href="#">信義學堂</a>
+                    </div>
+                    <div>
+                        <a class="mr-3 d-inline-block" href="#">投資人資訊</a>
+                        <a class="mr-3 d-inline-block" href="#">(Investor Relations)</a>
+                        <a class="mr-3 d-inline-block" href="#">利害關係人專區</a>
+                        <a class="mr-3 d-inline-block" href="#">金融機構專區</a>
+                    </div>
+                    <div>
+                        <a class="mr-3 d-inline-block" href="#">網站地圖</a>
+                        <a class="mr-3 d-inline-block" href="#">服務條款</a>
+                        <a class="mr-3 d-inline-block" href="#">保障隱私權聲明</a>
+                        <a class="mr-3 d-inline-block" href="#">相關網站</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
 </body>

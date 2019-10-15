@@ -14,30 +14,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <style>
-            .card {
-                margin: 10px auto;
-            }
-    
-            label~input {
-                width: 100%;
-            }
-        </style>
+        .card {
+            margin: 10px auto;
+        }
+
+        label~input {
+            width: 100%;
+        }
+    </style>
 
     <script>
 
-            function SingUp() {
-                var isAgree = $('#agree').prop("checked");
-                if (isAgree) {
-                    $('.modal-body').text( '註冊成功');
-                    $('#myModal').modal();
-                    return true;
-                } else {
-                    $('#myModal').modal();
-                    return false;
-                }
+        function SingUp() {
+            var isAgree = $('#agree').prop("checked");
+            if (isAgree) {
+                $('.modal-body').text('註冊成功');
+                $('#myModal').modal();
+                return true;
+            } else {
+                $('#myModal').modal();
+                return false;
             }
-    
-        </script>
+        }
+
+    </script>
 
 </head>
 
