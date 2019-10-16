@@ -161,6 +161,7 @@
       guessNum = $('#userGuess').val();
       checkGuessNumber();
       addGuessList();
+      $('#userGuess').val("");
     }
 
     function randomNumber() {
@@ -182,7 +183,7 @@
       guesslist = $("<li></li>").addClass('list-group-item').html('<span class="label ' + addclass + '">' + guessresult + '</span>' + guessNum);
       $('#guessResults').append(guesslist);
     }
-    
+
     function checkGuessNumber() {
       if (guessNum.length != 4) {
         alert("輸入錯誤");
@@ -190,7 +191,7 @@
         guessresult = calGuessNumberResult();
       }
     }
-    
+
     function calGuessNumberResult() {
       var a = 0;
       var b = 0;
@@ -222,8 +223,12 @@
       $('#guess').click(function () {
         doGuess();
       });
+      $('#guess').keydown(function (event) {
+        if (event.which == 13) {
+          doGuess();
+        }
+      });
     });
-
   </script>
 </body>
 

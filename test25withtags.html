@@ -17,14 +17,25 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
+    <!-- https://cdn.datatables.net/#FixedHeader -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/css/buttons.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/buttons/1.6.0/js/dataTables.buttons.min.js"></script>
+
+    <!-- https://cdnjs.com/libraries/jquery-tagsinput -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
+
+
     <script>
         //預設資料
         var dat = [
-            ['Eric', '0912345678', '1980/1/1', 'eric@gmail.com', '台北市光復南路179號13樓'],
+            ['Eric', '0912345678', '1980/1/1', 'eric@gmail.com', '台北市光復南路179號13樓', '1235,1541,45135'],
+            ['Eric', '0912345678', '1980/1/1', 'eric@gmail.com', '台北市光復南路179號13樓', '12341,45ddsf35']
         ];
         //show modal
         function ShowReviseModal(Item) {
-            CatchCurrenItem(Item)
+            CatchItem(Item)
             $('#dataModal .modal-title').text("修改或刪除");
             $('#deletebtn').show();
             $('#revisebtn').show();
@@ -34,7 +45,7 @@
         }
 
         function ShowAddModal() {
-            ClearItem();
+            Clear();
             $('#dataModal .modal-title').text("新增");
             $('#deletebtn').hide();
             $('#revisebtn').hide();
@@ -58,31 +69,33 @@
             $('#protcontent').val(jsondata);
             $('#portModal').modal();
         }
-        //清空表格func
+        //modal清空表格func
         function ClearItem() {
             var item = [
                 $("#Name").val(''),
                 $("#Birth").val(''),
                 $("#Phone").val(''),
                 $("#Email").val(''),
-                $("#Address").val('')
+                $("#Address").val(''),
+                $("#BookClass").importTags('')
             ];
         }
-        //抓取當前資料func
-        function CatchCurrenItem(Item) {
+        //modal抓取當前資料func
+        function CatchItem(Item) {
             var item = [
                 $("#Name").val(Item[0]),
                 $("#Birth").val(Item[1]),
                 $("#Phone").val(Item[2]),
                 $("#Email").val(Item[3]),
-                $("#Address").val(Item[4])
+                $("#Address").val(Item[4]),
+                $("#BookClass").importTags(Item[5])
             ];
         }
 
         //button event func
         function AddNew() {
             CatchSaveItem();
-            dat.push(saveitem);
+            dat.push(item);
             Reflash();
             Clear();
         }
@@ -113,6 +126,7 @@
                 $("#Phone").val(),
                 $("#Email").val(),
                 $("#Address").val(),
+                $("#BookClass").val()
             ];
         }
 
@@ -139,11 +153,34 @@
             dt.rows.add(dat);
             dt.draw();
         }
+        //自訂button還未完成
+        // $.fn.dataTable.ext.buttons.alert = {
+        //     className: 'buttons-alert',
+
+        //     action: function (e, dt, node, config) {
+        //         alert(this.text());
+        //     }
+        // };
 
         $(function () {
             LoadData();
             dt = $("#table1").DataTable({
-                data: dat
+                data: dat,
+                // dom: 'Bfrtip',
+                // buttons: [
+                //     {
+                //         extend: 'alert',
+                //         text: 'My button 1'
+                //     },
+                //     {
+                //         extend: 'alert',
+                //         text: 'My button 2'
+                //     },
+                //     {
+                //         extend: 'alert',
+                //         text: 'My button 3'
+                //     }
+                // ]
             });
             //主畫面button event hook
             $("#newdata").click(function () {
@@ -159,7 +196,6 @@
                 CurrentEditItem = dt.row(this).data();
                 ShowReviseModal(CurrentEditItem);
             });
-            //button event hook
             //新增button
             $("#addnewbtn").click(function () {
                 AddNew();
@@ -176,8 +212,32 @@
             $("#deletebtn").click(function () {
                 Delete(CurrentEditItem);
             });
-
+            //modal的tagsInput
+            $('#BookClass').tagsInput();
         });
+        //以下為tagsInput文件  https://codertw.com/前端開發/264125/
+        // $('#tags').tagsInput();
+        // $('#tags').addTag('foo');
+        // $('#tags').removeTag('bar');
+        // $('#tags').importTags('foo,bar,baz');
+        // $('#tags').importTags('');
+        // if ($('#tags').tagExist('foo')) { ... }
+        // $('#tags_1').tagsInput({
+        //     width: 'auto',
+        //     onAddTag: function (tag) {
+        //         console.log('增加了' tag)
+        //     },
+        //     onRemoveTag: function (tag) {
+        //         console.log('刪除了' tag)
+        //     }
+        // });
+        // $('#tags_1').tagsInput({
+        //     width: 'auto',
+        //     onRemoveTag: function (tag) {
+        //         console.log('remover' '"' tag '"')
+        //     },
+        //     interactive: false
+        // });
     </script>
 
 </head>
@@ -214,6 +274,8 @@
                                     <input class="w-100" type="text" id="Email">
                                     <label class="w-100" for="Address">地址</label>
                                     <input class="w-100" type="text" id="Address">
+                                    <label class="w-100" for="BookClass">分類</label>
+                                    <textarea class="w-100" id="BookClass"></textarea>
                                 </div>
                                 <div class="modal-footer">
                                     <button id="addnewbtn" type="button"
@@ -275,6 +337,7 @@
                                 <th>生日</th>
                                 <th>Email</th>
                                 <th>地址</th>
+                                <th>分類</th>
                             </tr>
                         </thead>
                     </table>
