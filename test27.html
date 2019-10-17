@@ -21,7 +21,7 @@
             $.ajax({
                 type: "post",
                 headers: {
-                    "Authorization": "EndpointKey db295e36-21cb-491c-945e-0dc55ff0439c",
+                    "Authorization": "",
                     "Content-Type": "application/json"
                 },
                 url: "https://linka1016qa.azurewebsites.net/qnamaker/knowledgebases/60aca31b-484b-4b56-8e79-f31dd818acd9/generateAnswer",
@@ -34,11 +34,15 @@
 
         function ShowAnswerText(response) {
             var answertext = response.answers[0].answer;
-            AddAnswerList(answertext);
+            if (answertext == 'No good match found in KB.') {
+                AddAnswerList('沒有此問題');
+            } else {
+                AddAnswerList(answertext);
+            }
         }
 
         function ShowNoAnswerText() {
-            AddAnswerList('沒有此問題');
+            AddAnswerList('錯誤');
         }
 
         function AddQuestionList(questiontext) {
@@ -78,7 +82,7 @@
                         對話機器人
                     </div>
                     <div class="card-body">
-                        <div id="TalkContainer" style="overflow: auto; height: 300px;">
+                        <div id="TalkContainer" style="overflow: auto; height: 300px;" class="p-2">
                             <!-- <div class="input-group justify-content-start">
                                 <span class="input-group-prepend">
                                     <img src="/image_test15/circle01.jpg" style="width: 50px">
