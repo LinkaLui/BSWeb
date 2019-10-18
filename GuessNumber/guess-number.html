@@ -105,7 +105,7 @@
               </ul>
               <div class="input-group">
                 <span class="input-group-addon" id="sizing-addon1">猜答案</span>
-                <input id="userGuess" type="text" name="" class="form-control" value="" required="required">
+                <input id="userGuess" type="text" name="" class="form-control" value="" required="required" readonly>
                 <span class="input-group-btn">
                   <a id="guess" type="button" class="btn btn-default">猜!</a>
                 </span>
@@ -142,6 +142,7 @@
       $('#start').addClass('disabled');
       $('#restart').removeClass('disabled');
       $('#cheat').removeClass('disabled');
+      $('#userGuess').removeAttr('readonly');
       randomNumber();
     }
 
@@ -223,7 +224,7 @@
       $('#guess').click(function () {
         doGuess();
       });
-      $('#guess').keydown(function (event) {
+      $('#userGuess').keydown(function (event) {
         if (event.which == 13) {
           doGuess();
         }
