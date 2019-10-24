@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>行事曆</title>
+
+    <!-- bootstrap 4.3.1 -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: lightblue;
+        }
+
+        #monthspace {
+            text-align: center;
+            border-top: 1px grey solid;
+            border-bottom: 1px grey solid;
+            border-left: 1px grey solid;
+            border-right: 1px grey solid;
+        }
+
+        #monthspace a:hover {
+            text-decoration: none;
+        }
+
+        #weekspace td {
+            text-align: center;
+            border: 1px grey solid;
+        }
+
+        #datespace td {
+            text-align: start;
+            border: 1px grey solid;
+            vertical-align: text-top;
+            width: 14vw;
+        }
+
+        #datespace li {
+            list-style-type: none;
+        }
+
+        #datespace tr {
+            height: 15vh;
+        }
+
+        thead tr {
+            height: 6vh;
+        }
+    </style>
+
+    <script>
+        var monthdata = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        var curren = new Date();
+        var days;
+        var year;
+        var month;
+        var date;
+        var week;
+
+        function catchDate(item) {
+            year = item.getFullYear();
+            month = item.getMonth();
+            date = item.getDate();
+            week = item.getDay();
+        }
+
+        function init() {
+            //顯示月份
+            $('#month').text(monthdata[month]);
+            catchDate(curren);
+            showTable();
+            $('#premonth').click(function () {
+                month -= 1;
+                if (month < 0) {
+                    month = 11;
+                    year -= 1;
+                }
+                showTable();
+            });
+            $('#nextmonth').click(function () {
+                month += 1;
+                if (month > 11) {
+                    month = 0;
+                    year += 1;
+                }
+                showTable();
+            });
+        }
+
+        function showTable() {
+            //算當月天數
+            days = new Date(year, month + 1, 0).getDate();
+            console.log(days);
+            //顯示月份
+            $('#month').text(monthdata[month]);
+            //取當月一天
+            var startdateindex = new Date(year, month, 1).getDay();
+            console.log(startdateindex);
+            //抓取td
+            var daysitem = $('#datespace td');
+            //顯示td
+            var day = 1;
+            for (i = 0; i < daysitem.length; i++) {
+                if (i < startdateindex) {
+                    var beforedays = new Date(year, month, 0).getDate();
+                    var beforedate = new Date(year, month - 1, beforedays - startdateindex + i + 1);
+                    $(daysitem[i]).attr('id', beforedate);
+                    daysitem[i].innerHTML = '<span class="text-muted">' + beforedate.getDate() + '</span>';
+                } else if (i >= startdateindex && i < startdateindex + days) {
+                    var thisdate = new Date(year, month, day);
+                    if (thisdate.getDay() == 6 || thisdate.getDay() == 0) {
+                        $(daysitem[i]).attr('id', thisdate);
+                        daysitem[i].innerHTML = '<span class="text-danger">' + thisdate.getDate() + '</span>';
+                    } else {
+                        $(daysitem[i]).attr('id', thisdate);
+                        daysitem[i].innerHTML = '<span>' + thisdate.getDate() + '</span>';
+                    }
+                    day++;
+                } else if (i >= startdateindex + days) {
+                    var afterdate = new Date(year, month + 1, i - startdateindex - days + 1);
+                    $(daysitem[i]).attr('id', afterdate);
+                    daysitem[i].innerHTML = '<span class="text-muted">' + afterdate.getDate() + '</span>';
+                }
+            }
+        }
+
+        $(function () {
+            init();
+
+            $('#test').click(function () {
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="container-fluid p-4">
+        <div class=" row m-auto align-content-center">
+            <h1>行事曆</h1>
+            <button id="test" class="btn btn-info h-75 m-2">test</button>
+        </div>
+        <div class="row bg-light m-auto">
+            <table class="w-100" style="height: 87vh;">
+                <thead>
+                    <tr id="monthspace">
+                        <td colspan="2"><a id="premonth" href="#">&lt;&lt;</a></td>
+                        <td colspan="3"><span id="month">month</span></td>
+                        <td colspan="2"><a id="nextmonth" href="#">&gt;&gt;</a></td>
+
+                    </tr>
+                    <tr id="weekspace">
+                        <td>日</td>
+                        <td>一</td>
+                        <td>二</td>
+                        <td>三</td>
+                        <td>四</td>
+                        <td>五</td>
+                        <td>六</td>
+                    </tr>
+                </thead>
+                <tbody id="datespace">
+                    <tr>
+                        <td>
+                            <span></span>
+                            <li>9</li>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+
+</html>
