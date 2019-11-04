@@ -105,6 +105,7 @@
             ["Wed Oct 02 2019 00:00:00 GMT+0800 (台北標準時間)", [{ "time": "0204", "event": "ssss" }]],
             ["Fri Oct 18 2019 00:00:00 GMT+0800 (台北標準時間)", [{ "time": "0108", "event": "ssssddd" }, { "time": "0208", "event": "ssssdddd" }]]
         ];
+        var thisitem;
 
         function LoadData() {
             if (localStorage.getItem("CalenderEventBook") != null) {
@@ -218,7 +219,6 @@
         }
 
         function checkDataDate(dateID) {
-            console.log(data);
             for (let i = 0; i < data.length; i++) {
                 if (data[i][0] == dateID) {
                     return i;
@@ -229,66 +229,39 @@
         //時間重複未判斷處理
         function CatchSaveItem() {
             var saveitem;
-            var dateID = (new Date($('#datepicker').val() + ' 00:00:00 +0800')).toString();
-            var time = $('#ampm').val() + $('#time').val();
-            var event = $('#eventtext').val();
+            let dateID = (new Date($('#datepicker').val() + ' 00:00:00 +0800')).toString();
+            let time = $('#ampm').val() + $('#time').val();
+            let event = $('#eventtext').val();
             var i = checkDataDate(dateID);
-            console.log(i);
-            console.log("AA");
             if (i != false) {
-                console.log("BB");
                 saveitem = { "time": time, "event": event }
-                var lisarray = data[i][1];
+                let lisarray = data[i][1];
                 lisarray.push(saveitem);
                 data[i][1] = lisarray;
             } else {
-                console.log("CC");
                 saveitem = [dateID, [{ "time": time, "event": event }]];
                 data.push(saveitem);
             }
         }
 
-        function CatchDeleteItem(item) {
-            var deleteitem;
-            var dateID = (new Date($(item).parent().attr('id'))).toString();
-            console.log(dateID);
-            var time = $(item).attr('id');
-            var event = $(item).text();
+        function CatchDeleteItem() {
+            let dateID = (new Date($(thisitem).parent().attr('id'))).toString();
+            let time = $(thisitem).attr('id');
+            let event = $(thisitem).text();
             var i = checkDataDate(dateID);
-            console.log(i);
-            console.log("aa");
             if (data[i][1].length > 1) {
-                console.log("bb");
-                var deleteitem = { "time": time, "event": event };
-                var lisarray = data[i][1];
-                for (k = 0; k < lisarray.length; k++) {
-                    if (lisarray[k] == deleteitem) {
+                let deleteitem = { "time": time, "event": event };
+                let lisarray = data[i][1];
+                 for (k = 0; k < lisarray.length; k++) {
+                    if (lisarray[k][time] == deleteitem[time] && lisarray[k][event] == deleteitem[event]) {
                         lisarray.splice(k, 1);
                     }
                 }
                 data[i][1] = lisarray;
             } else {
-                console.log("cc");
                 data.splice(i, 1);
             }
         }
-
-        // function CheckReviseItemChange(Item) {
-        //     CatchSaveItem();
-        //     CatchDeleteItem(Item);
-        //     // var saveitem = [
-        //     //     (new Date($('#datepicker').val() + ' 00:00:00 +0800')).toString(),
-        //     //     $('#ampm').val() + $('#time').val(),
-        //     //     $('#eventtext').val()
-        //     // ];
-        //     // var deleteitem = [
-        //     //     (new Date($(Item).parent().attr('id'))).toString(),
-        //     //     $(Item).attr('id'),
-        //     //     $(Item).text()
-        //     // ];
-        //     // console.log($(Item).parent()[0].id);
-        //     // console.log($(Item)[0].id);
-        // }
 
         function showAddModal() {
             $('#btn_add').show();
@@ -300,22 +273,14 @@
             });
         }
 
-        function ShowReviseModal(CurrentEditItem) {
-            CatchCurrenItem(CurrentEditItem);
+        function ShowReviseModal() {
+            CatchCurrenItem(thisitem);
             $('#btn_add').hide();
             $('#btn_revise').show();
             $('#btn_remove').show();
             $('#addmodal').modal();
             $('#datepicker').datepicker({
                 dateFormat: "yy-m-d"
-            });
-
-            $('#btn_revise').click(function () {
-                ReviseData(CurrentEditItem);
-            });
-
-            $('#btn_remove').click(function () {
-                DeleteData(CurrentEditItem);
             });
         }
 
@@ -324,13 +289,13 @@
             showTable();
         }
 
-        function DeleteData(item) {
-            CatchDeleteItem(item);
+        function DeleteData() {
+            CatchDeleteItem();
             showTable();
         }
 
-        function ReviseData(item) {
-            CatchDeleteItem(item);
+        function ReviseData() {
+            CatchDeleteItem();
             CatchSaveItem();
             showTable();
         }
@@ -338,7 +303,7 @@
 
         $(function () {
             init();
-            console.log(data);
+
             $('#additem').click(function () {
                 ClearItem();
                 showAddModal();
@@ -349,7 +314,16 @@
             });
 
             $('#datespace').on('click', 'li', function () {
-                ShowReviseModal(this);
+                thisitem = this;
+                ShowReviseModal();
+            });
+
+            $('#btn_revise').click(function () {
+                ReviseData();
+            });
+
+            $('#btn_remove').click(function () {
+                DeleteData();
             });
 
         });
@@ -578,7 +552,7 @@
                 </div>
                 <div class="modal-footer">
                     <button id="btn_add" type="button" class="btn btn-success" data-dismiss="modal">新增</button>
-                    <button id="btn_revise" type="button" class="btn btn-primary">修改</button>
+                    <button id="btn_revise" type="button" class="btn btn-primary" data-dismiss="modal">修改</button>
                     <button id="btn_remove" type="button" class="btn btn-danger" data-dismiss="modal">刪除</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
                 </div>
