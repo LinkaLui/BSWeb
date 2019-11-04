@@ -35,7 +35,7 @@
             background-image: none;
             background-color: white;
             transition-duration: 0.5s;
-            z-index: 50;
+            z-index: 0;
         }
     </style>
 
@@ -72,12 +72,14 @@
 
         //開始事件__隨機洗牌
         function randomtable() {
-            var times = 100;
-            var step = [];
-            for (let t = 0; t < times; t++) {
-                changesides();
+            if (randomcheck == false) {
+                var times = 100;
+                var step = [];
+                for (let t = 0; t < times; t++) {
+                    changesides();
+                }
+                randomcheck = true;
             }
-            randomcheck = true;
         }
         //開始事件__隨機洗牌__單次
         function changesides() {

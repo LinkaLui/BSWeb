@@ -12,6 +12,11 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- jQuery UI Datepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
     <style>
         body {
             background-color: lightblue;
@@ -39,14 +44,48 @@
             border: 1px grey solid;
             vertical-align: text-top;
             width: 14vw;
+            overflow-y: hidden;
+        }
+
+        #datespace td:hover {
+            overflow-y: scroll;
         }
 
         #datespace li {
             list-style-type: none;
+            border-left: 2px blue solid;
+        }
+
+        #datespace li:hover {
+            cursor: pointer;
         }
 
         #datespace tr {
             height: 15vh;
+        }
+
+        #additem {
+            background-color: lightseagreen;
+            text-align: center;
+            padding-top: 0;
+            box-shadow: none;
+            border-radius: 50%;
+            height: 32px;
+            width: 32px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        #additem:hover {
+            cursor: pointer;
+        }
+
+        #datepicker {
+            z-index: 100000;
+        }
+
+        #timepicker {
+            z-index: 100000;
         }
 
         thead tr {
@@ -62,6 +101,21 @@
         var month;
         var date;
         var week;
+        var data = [
+            ["Wed Oct 02 2019 00:00:00 GMT+0800 (台北標準時間)", [{ "time": "0204", "event": "ssss" }]],
+            ["Fri Oct 18 2019 00:00:00 GMT+0800 (台北標準時間)", [{ "time": "0108", "event": "ssssddd" }, { "time": "0208", "event": "ssssdddd" }]]
+        ];
+
+        function LoadData() {
+            if (localStorage.getItem("CalenderEventBook") != null) {
+                data = JSON.parse(localStorage.getItem("CalenderEventBook"));
+            }
+        }
+
+        function SaveData() {
+            jsondata = JSON.stringify(data);
+            localStorage.setItem("CalenderEventBook", jsondata);
+        }
 
         function catchDate(item) {
             year = item.getFullYear();
@@ -91,17 +145,21 @@
                 }
                 showTable();
             });
+
         }
 
         function showTable() {
             //算當月天數
             days = new Date(year, month + 1, 0).getDate();
-            console.log(days);
             //顯示月份
             $('#month').text(monthdata[month]);
             //取當月一天
             var startdateindex = new Date(year, month, 1).getDay();
-            console.log(startdateindex);
+            if ((startdateindex == 5 && days == 31) || (startdateindex == 6 && days >= 30)) {
+                $('#overdays').show();
+            } else {
+                $('#overdays').hide();
+            }
             //抓取td
             var daysitem = $('#datespace td');
             //顯示td
@@ -128,13 +186,172 @@
                     daysitem[i].innerHTML = '<span class="text-muted">' + afterdate.getDate() + '</span>';
                 }
             }
+            showTableLists();
         }
+        //上下午以及時間的順序還未判斷
+        function showTableLists() {
+            $("#datespace td").each(function () {
+                for (i = 0; i < data.length; i++) {
+                    if (data[i][0] == $(this)[0].id) {
+                        var lis = '';
+                        for (j = 0; j < data[i][1].length; j++) {
+                            lis += '<li id="' + data[i][1][j].time + '">' + data[i][1][j].event + '</li>';
+                        }
+                        $(this)[0].innerHTML = $(this)[0].innerHTML + lis;
+                    }
+                }
+            });
+        }
+
+        function ClearItem() {
+            $("#datepicker").val('');
+            $("#ampm").val('');
+            $("#time").val('');
+            $("#eventtext").val('');
+        }
+
+        function CatchCurrenItem(item) {
+            $("#datepicker").val(new Date($(item).parent().attr('id')).toLocaleString().substr(0, 10).replace('/', '-').replace('/', '-'));
+            $("#ampm").val($(item).attr('id').substr(0, 2));
+            $("#time").val($(item).attr('id').substr(2, 2));
+            $("#eventtext").val($(item).text());
+        }
+
+        function checkDataDate(dateID) {
+            console.log(data);
+            for (let i = 0; i < data.length; i++) {
+                if (data[i][0] == dateID) {
+                    return i;
+                }
+            }
+            return false;
+        }
+        //時間重複未判斷處理
+        function CatchSaveItem() {
+            var saveitem;
+            var dateID = (new Date($('#datepicker').val() + ' 00:00:00 +0800')).toString();
+            var time = $('#ampm').val() + $('#time').val();
+            var event = $('#eventtext').val();
+            var i = checkDataDate(dateID);
+            console.log(i);
+            console.log("AA");
+            if (i != false) {
+                console.log("BB");
+                saveitem = { "time": time, "event": event }
+                var lisarray = data[i][1];
+                lisarray.push(saveitem);
+                data[i][1] = lisarray;
+            } else {
+                console.log("CC");
+                saveitem = [dateID, [{ "time": time, "event": event }]];
+                data.push(saveitem);
+            }
+        }
+
+        function CatchDeleteItem(item) {
+            var deleteitem;
+            var dateID = (new Date($(item).parent().attr('id'))).toString();
+            console.log(dateID);
+            var time = $(item).attr('id');
+            var event = $(item).text();
+            var i = checkDataDate(dateID);
+            console.log(i);
+            console.log("aa");
+            if (data[i][1].length > 1) {
+                console.log("bb");
+                var deleteitem = { "time": time, "event": event };
+                var lisarray = data[i][1];
+                for (k = 0; k < lisarray.length; k++) {
+                    if (lisarray[k] == deleteitem) {
+                        lisarray.splice(k, 1);
+                    }
+                }
+                data[i][1] = lisarray;
+            } else {
+                console.log("cc");
+                data.splice(i, 1);
+            }
+        }
+
+        // function CheckReviseItemChange(Item) {
+        //     CatchSaveItem();
+        //     CatchDeleteItem(Item);
+        //     // var saveitem = [
+        //     //     (new Date($('#datepicker').val() + ' 00:00:00 +0800')).toString(),
+        //     //     $('#ampm').val() + $('#time').val(),
+        //     //     $('#eventtext').val()
+        //     // ];
+        //     // var deleteitem = [
+        //     //     (new Date($(Item).parent().attr('id'))).toString(),
+        //     //     $(Item).attr('id'),
+        //     //     $(Item).text()
+        //     // ];
+        //     // console.log($(Item).parent()[0].id);
+        //     // console.log($(Item)[0].id);
+        // }
+
+        function showAddModal() {
+            $('#btn_add').show();
+            $('#btn_revise').hide();
+            $('#btn_remove').hide();
+            $('#addmodal').modal();
+            $('#datepicker').datepicker({
+                dateFormat: "yy-m-d"
+            });
+        }
+
+        function ShowReviseModal(CurrentEditItem) {
+            CatchCurrenItem(CurrentEditItem);
+            $('#btn_add').hide();
+            $('#btn_revise').show();
+            $('#btn_remove').show();
+            $('#addmodal').modal();
+            $('#datepicker').datepicker({
+                dateFormat: "yy-m-d"
+            });
+
+            $('#btn_revise').click(function () {
+                ReviseData(CurrentEditItem);
+            });
+
+            $('#btn_remove').click(function () {
+                DeleteData(CurrentEditItem);
+            });
+        }
+
+        function AddData() {
+            CatchSaveItem();
+            showTable();
+        }
+
+        function DeleteData(item) {
+            CatchDeleteItem(item);
+            showTable();
+        }
+
+        function ReviseData(item) {
+            CatchDeleteItem(item);
+            CatchSaveItem();
+            showTable();
+        }
+
 
         $(function () {
             init();
-
-            $('#test').click(function () {
+            console.log(data);
+            $('#additem').click(function () {
+                ClearItem();
+                showAddModal();
             });
+
+            $('#btn_add').click(function () {
+                AddData();
+            });
+
+            $('#datespace').on('click', 'li', function () {
+                ShowReviseModal(this);
+            });
+
         });
     </script>
 
@@ -144,7 +361,7 @@
     <div class="container-fluid p-4">
         <div class=" row m-auto align-content-center">
             <h1>行事曆</h1>
-            <button id="test" class="btn btn-info h-75 m-2">test</button>
+            <div id="additem" class="text-white m-2">＋</div>
         </div>
         <div class="row bg-light m-auto">
             <table class="w-100" style="height: 87vh;">
@@ -282,9 +499,90 @@
                             <span></span>
                         </td>
                     </tr>
+                    <tr id="overdays">
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                        <td>
+                            <span></span>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
+        </div>
+    </div>
+
+    <div id="addmodal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">新增事項</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group w-100 container">
+                        <div class="rows align-items-center justify-content-center w-100">
+                            <label>時間：</label>
+                            <input type="text" class="form-control rounded m-1 w-25" placeholder="年/月/日" id="datepicker"
+                                style="display: inline-block;">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <select type="text" class="form-control rounded m-1 w-25" id="ampm"
+                                style="display: inline-block;">
+                                <option value="01" active>上午</option>
+                                <option value="02">下午</option>
+                            </select>
+                            <select type="text" class="form-control rounded m-1 w-25" id="time"
+                                style="display: inline-block;">
+                                <option value="" active>時間</option>
+                                <option value="01">1時</option>
+                                <option value="02">2時</option>
+                                <option value="03">3時</option>
+                                <option value="04">4時</option>
+                                <option value="05">5時</option>
+                                <option value="06">6時</option>
+                                <option value="07">7時</option>
+                                <option value="08">8時</option>
+                                <option value="09">9時</option>
+                                <option value="10">10時</option>
+                                <option value="11">11時</option>
+                                <option value="12">12時</option>
+                            </select>
+                        </div>
+                        <div class="rows align-items-center justify-content-center w-100">
+                            <label>事項：</label>
+                            <input class="m-auto form-control rounded" type="text" placeholder="事項敘述" id="eventtext"
+                                style="display: inline-block;">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn_add" type="button" class="btn btn-success" data-dismiss="modal">新增</button>
+                    <button id="btn_revise" type="button" class="btn btn-primary">修改</button>
+                    <button id="btn_remove" type="button" class="btn btn-danger" data-dismiss="modal">刪除</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
