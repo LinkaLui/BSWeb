@@ -145,7 +145,8 @@
             }
             createbox();
             $('#imagetable').css('background-image', 'none');
-            alert("請選擇空格位置");
+            $('#modaltext').text('請選擇空格位置');
+            $('#modal').modal();
             clickEmptyAndMove();
         }
 
@@ -170,7 +171,8 @@
         function checklevelselect() {
             let select = $('#tableselect').val();
             if (select == 0) {
-                alert("請選擇難度");
+                $('#modaltext').text('請選擇難度');
+                $('#modal').modal();
             } else {
                 checkemptyselect();
             }
@@ -178,7 +180,8 @@
         //檢查遊戲開始___檢查點擊空格td
         function checkemptyselect() {
             if (emptycheck == false) {
-                alert("請點擊空位置");
+                $('#modaltext').text('請點擊空位置');
+                $('#modal').modal();
             } else {
                 checkrandom();
             }
@@ -186,7 +189,8 @@
         //檢查遊戲開始___檢查洗牌
         function checkrandom() {
             if (randomcheck == false) {
-                alert("請洗牌");
+                $('#modaltext').text('請洗牌');
+                $('#modal').modal();
             } else {
                 randomcheck = true;
             }
@@ -214,9 +218,11 @@
                         movetransition($(this));
                     } else {
                         if (randomcheck == true) {
-                            alert("請按開始");
+                            $('#modaltext').text('請按開始');
+                            $('#modal').modal();
                         } else {
-                            alert("請按洗牌");
+                            $('#modaltext').text('請按洗牌');
+                            $('#modal').modal();
                         }
                     }
                 }
@@ -251,7 +257,8 @@
                 }
             }
             if (done == tablenumber * tablenumber) {
-                console.log("恭喜完成");
+                $('#modaltext').text('恭喜破關');
+                $('#modal').modal();
             }
         }
 
@@ -326,6 +333,22 @@
                 </div>
             </div>
         </div>
+
+
+        <div id="modal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="modaltext" class="modal-title">恭喜破關</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
 
 

@@ -252,7 +252,7 @@
             if (data[i][1].length > 1) {
                 let deleteitem = { "time": time, "event": event };
                 let lisarray = data[i][1];
-                 for (k = 0; k < lisarray.length; k++) {
+                for (k = 0; k < lisarray.length; k++) {
                     if (lisarray[k][time] == deleteitem[time] && lisarray[k][event] == deleteitem[event]) {
                         lisarray.splice(k, 1);
                     }
@@ -264,6 +264,7 @@
         }
 
         function showAddModal() {
+            $('#modaltext').text('新增事項');
             $('#btn_add').show();
             $('#btn_revise').hide();
             $('#btn_remove').hide();
@@ -275,6 +276,7 @@
 
         function ShowReviseModal() {
             CatchCurrenItem(thisitem);
+            $('#modaltext').text('修改事項');
             $('#btn_add').hide();
             $('#btn_revise').show();
             $('#btn_remove').show();
@@ -506,7 +508,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">新增事項</h5>
+                    <h5 id="modaltext" class="modal-title">新增事項</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
