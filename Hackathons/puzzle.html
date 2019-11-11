@@ -15,7 +15,7 @@
 
     <style>
         #imagetable {
-            background-image: url('images/image.png');
+            /* background-image: url('images/image.png'); */
             width: 600px;
             height: 600px;
             background-repeat: no-repeat;
@@ -26,8 +26,9 @@
 
         #imagetable .tdclass {
             border: 2px orangered solid;
-            background-image: url('images/image.png');
-            background-size: 600px;
+            /* background-image: url('images/image.png'); */
+            background-repeat: no-repeat;
+            background-size: 600px 600px;
             transition-duration: 0.5s;
         }
 
@@ -48,6 +49,7 @@
         var box = [];
         var left;
         var top;
+        var imgsrc = 'images/image.png';
 
         //----------------開始初始-----------------------
 
@@ -59,9 +61,14 @@
             emptyid;
             tablenumber;
             box = [];
+            imgsrc = 'images/image.png';
             $('#btn_reset').attr("disabled", "true");
             $('#btn_start').removeAttr("disabled");
             $('#btn_random').removeAttr("disabled");
+            $('#imagetable').css("background-image", `url('${imgsrc}')`);
+            $('#imagetable .tdclass').css("background-image", `url('${imgsrc}')`);
+            $('#btn_setimg').attr("disable", "false");
+
         }
         //初始
         function initial() {
@@ -73,7 +80,7 @@
         //開始事件__隨機洗牌
         function randomtable() {
             if (randomcheck == false) {
-                var times = 100;
+                var times = 500;
                 var step = [];
                 for (let t = 0; t < times; t++) {
                     changesides();
@@ -123,6 +130,19 @@
 
         //----------------開始前設定動作-----------------------
 
+        //選擇圖片
+        function setImgScr() {
+            //https://crazypetter.com.tw/wp-content/uploads/2019/07/BLOW-成長史_190413_0911.jpg
+            var inputcheck = $('#imgsrc').val().substr($('#imgsrc').val().length - 3, 3);
+            if (inputcheck == "jpg" || inputcheck == "png" || inputcheck == "gif") {
+                imgsrc = $('#imgsrc').val();
+            } else {
+                imgsrc = 'images/image.png';
+            }
+            $('#imagetable').css("background-image", `url('${imgsrc}')`);
+            $('#btn_setimg').attr("disable", "true");
+        }
+
         //難度選擇事件__產生td
         function createtable() {
             $('#imagetable').empty();
@@ -145,6 +165,7 @@
             }
             createbox();
             $('#imagetable').css('background-image', 'none');
+            $('#imagetable .tdclass').css("background-image", `url('${imgsrc}')`);
             $('#modaltext').text('請選擇空格位置');
             $('#modal').modal();
             clickEmptyAndMove();
@@ -267,14 +288,15 @@
 
             //難度選擇事件
             $('#tableselect').change(function () {
-                reflesh();
                 tablenumber = $('#tableselect').val();
                 createtable();
             });
 
             //洗牌事件
             $('#btn_random').click(function () {
-                randomtable();
+                if (randomcheck == false) {
+                    randomtable();
+                }
             });
 
             //開始事件
@@ -287,10 +309,16 @@
                 initial();
             });
 
-            // //選圖事件
-            // $('#btn_setimg').click(function () {
-            //     checkdone();
-            // });
+            //選圖事件
+            $('#btn_setimg').click(function () {
+                $('#imgmodal').modal();
+            });
+
+            //選圖確定
+            $('#btn_imgchange').click(function () {
+                reflesh();
+                setImgScr();
+            });
         });
 
 
@@ -311,6 +339,9 @@
             </div>
             <div class="row justify-content-center">
                 <div class="m-3">
+                    <button class="btn btn-primary" id="btn_setimg">選擇圖片</button>
+                </div>
+                <div class="m-3">
                     <select id="tableselect" class="custom-select custom-select-lg">
                         <option selected value="1">選擇難度</option>
                         <option value="2">簡單</option>
@@ -319,9 +350,6 @@
                         <option value="5">挑戰</option>
                     </select>
                 </div>
-                <!-- <div class="m-3">
-                    <button class="btn btn-primary" id="btn_setimg">選擇圖片</button>
-                </div> -->
                 <div class="m-3">
                     <button class="btn btn-primary" id="btn_random">洗牌</button>
                 </div>
@@ -348,7 +376,24 @@
             </div>
         </div>
 
-
+        <div id="imgmodal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="modaltext" class="modal-title">選擇圖片</h5>
+                    </div>
+                    <div class="modal-body">
+                        <label for="imgsrc">圖片網址：</label>
+                        <input type="text" id="imgsrc" placeholder="請貼上圖片網址">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            id="btn_imgchange">確定</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
