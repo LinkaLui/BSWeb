@@ -102,8 +102,8 @@
         var date;
         var week;
         var data = [
-            ["Wed Oct 02 2019 00:00:00 GMT+0800 (台北標準時間)", [{ "time": "0204", "event": "ssss" }]],
-            ["Fri Oct 18 2019 00:00:00 GMT+0800 (台北標準時間)", [{ "time": "0108", "event": "ssssddd" }, { "time": "0208", "event": "ssssdddd" }]]
+            ["Wed Nov 06 2019 00:00:00 GMT+0800 (台北標準時間)", [{ "time": "0204", "event": "ssss" }]],
+            ["Fri Nov 15 2019 00:00:00 GMT+0800 (台北標準時間)", [{ "time": "0108", "event": "ssssddd" }, { "time": "0208", "event": "ssssdddd" }]]
         ];
         var thisitem;
 
@@ -126,6 +126,7 @@
         }
 
         function init() {
+            LoadData();
             //顯示月份
             $('#month').text(monthdata[month]);
             catchDate(curren);
@@ -226,6 +227,24 @@
             }
             return false;
         }
+
+        function rewriteEvent(rewritedate, saveitem) {
+            var lisarray = [];
+            for (let i = 0; i < rewritedate.length; i++) {
+                var once = 0;
+                if (rewritedate[i].time < saveitem.time) {
+                    lisarray.push(rewritedate[i]);
+                } else if (rewritedate[i].time >= saveitem.time) {
+                    while (once == 0) {
+                        lisarray.push(saveitem);
+                        once++;
+                    }
+                }
+                lisarray.push(rewritedate[i]);
+            }
+            return lisarray;
+        }
+
         //時間重複未判斷處理
         function CatchSaveItem() {
             var saveitem;
@@ -233,15 +252,14 @@
             let time = $('#ampm').val() + $('#time').val();
             let event = $('#eventtext').val();
             var i = checkDataDate(dateID);
-            if (i != false) {
+            if (i !== false) {
                 saveitem = { "time": time, "event": event }
-                let lisarray = data[i][1];
-                lisarray.push(saveitem);
-                data[i][1] = lisarray;
+                data[i][1] = rewriteEvent(data[i][1], saveitem);
             } else {
                 saveitem = [dateID, [{ "time": time, "event": event }]];
                 data.push(saveitem);
             }
+            SaveData();
         }
 
         function CatchDeleteItem() {
@@ -261,6 +279,7 @@
             } else {
                 data.splice(i, 1);
             }
+            SaveData();
         }
 
         function showAddModal() {
@@ -338,6 +357,7 @@
         <div class=" row m-auto align-content-center">
             <h1>行事曆</h1>
             <div id="additem" class="text-white m-2">＋</div>
+            <!-- <div id="test" class="text-white m-2">＋</div> -->
         </div>
         <div class="row bg-light m-auto">
             <table class="w-100" style="height: 87vh;">
