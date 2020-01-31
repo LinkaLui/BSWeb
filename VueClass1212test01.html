@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <script>
+        var json = {title:"標題123"};
+
+        function binding(){
+            var vm = new Vue({
+                el:"#block1",
+                data:json,
+                methods:{
+                    changetitle:function(){
+                        json.title="changed";
+                    }
+                }
+            }); 
+        }
+
+        //var myclock = {mytime :0};
+        var myclock = {mytime :""};
+        
+        function clock(){
+            //myclock.mytime++;
+            myclock.mytime = Date();
+            setTimeout(clock,1000);
+        }
+
+        // function changetitlen(){
+        //     json.title="changed";
+        // }
+
+        function timecounting(){
+            new Vue({
+                el:"#clock1",
+                data:myclock
+            }); 
+        }
+        
+        $(function () {
+            binding();
+            timecounting();
+            clock();
+            // $("btn_changetitle").click(changetitle);
+
+            
+        });
+
+    </script>
+
+</head>
+<body>
+    <div id="block1">
+        <label>{{title}}</label>
+        <br/>
+        <input type="text" v-model="title">
+        <br/>
+        <button v-on:click="changetitle">改title</button>
+    </div>
+    <div id="clock1">
+        <label>{{mytime}}</label>
+    </div>
+    
+
+</body>
+</html>

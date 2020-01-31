@@ -1,0 +1,121 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>vue</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+    <style>
+        #app {
+            margin-top: 120px;
+        }
+
+        .pagenav {
+            margin: 10px;
+            padding: 5px;
+            border: 1px solid #CCCCCC;
+            font-size: 12px;
+            width: 25px;
+        }
+
+        .selectedpage {
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="app" v-if="pagenavshow">
+        <!--總頁數等於1就不顯示分頁div了。-->
+        <p v-if="shownot">
+            <!--/總頁數小於11， 就不用顯示……了。-->
+            <span class="pagenav" v-bind:class="{ 'selectedpage':  item==curpage  }" v-for=' item  in sum'
+                v-on:click='pageclick(item)'>{{item}}</span>
+        </p>
+        <p v-else>
+            <span class="pagenav" v-bind:class="{ 'selectedpage':  item==curpage  }" v-for=' item in firstsum'
+                v-on:click='pageclick(item)'>{{item}}</span>
+            <span>……</span>
+            <span class="pagenav" v-bind:class="{ 'selectedpage':  item==curpage  }" v-for=' item in middlesum'
+                v-on:click='pageclick(item)'>{{item}}</span>
+            <span v-if="secondpot">……</span>
+            <!--當前頁數小於6或者大於末頁-4， 就不用顯示第二個……了。-->
+            <span class="pagenav" v-bind:class="{ 'selectedpage':  item==curpage  }" v-for=' item in lastsum'
+                v-on:click='pageclick(item)'>{{item}}</span>
+        </p>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                sum: 100,
+                curpage: '1',
+            },
+            methods: {
+                pageclick: function (item) {
+                    this.curpage = item;
+                    console.log(this.curpage)
+                }
+            },
+            computed: {
+                pagenavshow: function () {
+                    if (this.sum == 1) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                },
+
+                shownot: function () {
+                    if (this.sum < 12) {
+                        return true;
+                    } else {
+                        return false
+                    }
+                },
+                firstsum: function () {
+                    if (this.curpage < 6) {
+                        return [1, 2, 3, 4, 5, 6, 7];
+                    } else {
+                        return 1;
+                    }
+                },
+                middlesum: function () {
+                    var cpage = this.curpage;
+                    if (this.curpage < 6 || this.curpage > this.sum - 4) {
+                        return false;
+                    } else {
+                        return [cpage - 2, cpage - 1, cpage, cpage + 1, cpage + 2];
+                    }
+                },
+                lastsum: function () {
+                    if (this.curpage < this.sum - 3) {
+                        return [this.sum];
+                    } else {
+                        return [this.sum - 5, this.sum - 4, this.sum - 3, this.sum - 2, this.sum - 1, this.sum]
+                    }
+                },
+                secondpot: function () {
+                    if (this.curpage < 6 || this.curpage > this.sum - 4) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

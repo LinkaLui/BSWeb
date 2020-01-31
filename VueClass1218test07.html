@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+  
+
+  <title>Document</title>
+
+  <script>
+
+    var vm;
+
+    var json =
+    {
+      "items": [
+        {
+          ID: 3,
+          title: "總裁", name: "Eric", PictureURL: "https://i.imgur.com/uxvy97n.png", Phone: "0912345678",
+          Address: "新竹市大同區二三五路四號六樓",
+          Memo: "澳洲來的人", isValid: true
+        },
+        {
+          ID: 4,
+          title: "瑪農", name: "David", PictureURL: "https://i.imgur.com/qsQcoGh.png", Phone: "0987654321",
+          Address: "台北市信義區忠孝東路231號3樓",
+          Memo: "充滿活力的廉價勞工", isValid: true
+        },
+        {
+          ID: 5,
+          title: "Boss", name: "Amy", PictureURL: "https://i.imgur.com/dfww1JX.png", Phone: "0912121121",
+          Address: "高雄市仁義區六六路3號23樓",
+          Memo: "小資女", isValid: true
+        },
+        {
+          ID: 6,
+          title: "總裁", name: "Eric", PictureURL: "https://i.imgur.com/uxvy97n.png", Phone: "0912345678",
+          Address: "新竹市大同區二三五路四號六樓",
+          Memo: "澳洲來的人", isValid: true
+        },
+        {
+          ID: 7,
+          title: "瑪農", name: "David", PictureURL: "https://i.imgur.com/qsQcoGh.png", Phone: "0987654321",
+          Address: "台北市信義區忠孝東路231號3樓",
+          Memo: "充滿活力的廉價勞工", isValid: true
+        },
+        {
+          ID: 8,
+          title: "Boss", name: "Amy", PictureURL: "https://i.imgur.com/dfww1JX.png", Phone: "0912121121",
+          Address: "高雄市仁義區六六路3號23樓",
+          Memo: "小資女", isValid: true
+        }
+      ]
+    };
+
+    function binding() {
+      vm = new Vue({
+        el: '#app',
+        data: json
+      })
+    }
+
+    $(function () {
+      $('#myTable').DataTable();
+      binding();
+    });
+
+  </script>
+</head>
+
+
+<body>
+  <div class="container">
+    <div id="app">
+      <table id="myTable">
+        <div>
+          <thead>
+            <th>功能</th>
+            <th>ID</th>
+            <th>name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Memo</th>
+          </thead>
+          <tbody>
+            <tr v-for="item in items">
+              <td><button type="button" class="btn btn-danger">刪除</button></td>
+              <td>{{item.ID}}</td>
+              <td>{{item.title}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.Phone}}</td>
+              <td>{{item.isValid}}</td>
+            </tr>
+          </tbody>
+        </div>
+
+      </table>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>
