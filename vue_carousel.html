@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VueCarousel</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css" />
+
+    <script>
+        $(function () {
+
+            // carousel items
+            const carousels = [
+                {
+                    img: 'https://picsum.photos/900/506?image=1081'
+                },
+                {
+                    img: 'https://picsum.photos/900/506?image=1068'
+                },
+                {
+                    img: 'https://picsum.photos/900/506?image=989'
+                }
+            ];
+
+            // vue
+            new Vue({
+                el: '#app',
+                data: {
+                    carousels: carousels,
+                    show: 0,
+                    carouseltimer:''
+                },
+                mounted() {
+                    this.play();
+                },
+                computed: {
+                    len() {
+                        return this.carousels.length;
+                    },
+                    show() {
+
+                    }
+                },
+                methods: {
+                    toNext() {
+                        this.stop();
+                        this.show + 1 >= this.len ? this.show = 0 : this.show = this.show + 1;
+                        this.play();
+                    },
+                    toPrev() {
+                        this.stop();
+                        this.show - 1 < 0 ? this.show = this.len - 1 : this.show = this.show - 1;
+                        this.play();
+                    },
+                    play() {
+                        this.carouseltimer = setInterval(() => {this.show + 1 >= this.len ? this.show = 0 : this.show = this.show + 1;}, 3000);
+                    },
+                    stop() {
+                        clearInterval(this.carouseltimer);
+                        this.carouseltimer = '';
+                    }
+                },
+            });
+        });
+    </script>
+    <style>
+        body {
+            background-color: burlywood;
+        }
+
+        .container {
+            width: 70vw;
+            height: 39vw;
+            position: absolute;
+            left: 50%;
+            top: 5vw;
+            margin-left: -35vw;
+        }
+
+        .item img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .dot-group {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -55px;
+        }
+
+        .btn.btn-prev {
+            position: absolute;
+            top: 48%;
+            left: 20px;
+        }
+
+        .btn.btn-next {
+            position: absolute;
+            top: 48%;
+            right: 20px;
+        }
+
+        .btn.btn-next {
+            position: absolute;
+            top: 48%;
+            right: 20px;
+        }
+
+        .btn i {
+            color: lightgrey;
+            font-size: 30px;
+        }
+
+        .btn i:hover {
+            cursor: pointer;
+            color: cornsilk;
+        }
+
+        .dot-group a {
+            color: lightgrey;
+            padding: 10px;
+        }
+
+        .dot-group a:hover {
+            cursor: pointer;
+        }
+
+        .dot-group .active {
+            color: cornsilk;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div id="carouselitem" class="item" v-for="(item, i) in carousels" v-if="show == i" :key="i">
+                <a><img :src="item.img" /></a>
+            </div>
+            <a class="btn btn-prev" @click.prevent="toPrev"><i class="fas fa-chevron-left"></i></a>
+            <a class="btn btn-next" @click.prevent="toNext"><i class="fas fa-chevron-right"></i></a>
+            <div class="dot-group">
+                <a v-for="(l, i) in len" :class="{'active': show == i }" @click.prevent="show = i"><i
+                        class="fas fa-circle"></i></a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
